@@ -25,10 +25,11 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - name: Verify Gradle wrapper
+      - name: Install and verify official Gradle wrapper
         shell: bash
         run: |
           set -euo pipefail
+          curl --fail --silent --show-error --location https://raw.githubusercontent.com/gradle/gradle/v8.13.0/gradle/wrapper/gradle-wrapper.jar -o gradle/wrapper/gradle-wrapper.jar
           expected=$(curl --fail --silent --show-error --location https://services.gradle.org/distributions/gradle-8.13-wrapper.jar.sha256)
           printf '%s  gradle/wrapper/gradle-wrapper.jar\n' "$expected" | sha256sum --check -
       - name: Install required Android SDK packages
